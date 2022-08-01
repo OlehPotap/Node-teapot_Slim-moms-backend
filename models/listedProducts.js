@@ -1,9 +1,9 @@
 const { Schema, model } = require("mongoose");
-const Joi = require("joi");
+// const Joi = require("joi");
 
 // const title = {ru, ua};
 
-const productSchema = Schema(
+const listedProductSchema = Schema(
   {
     categories: {
       type: String,
@@ -25,15 +25,10 @@ const productSchema = Schema(
     groupBloodNotAllowed: {
       type: Array,
     },
-    owner: {
-      type: Schema.Types.ObjectId,
-      ref: "user",
-    },
   },
-  { versionKey: false, timestamps: true }
 );
 
-const add = Joi.object({
+// const addListedProduct = Joi.object({
 //   categories: Joi.string().required(),
 //   weight: Joi.string.required(),
 //   title: Joi.object({ ru: Joi.string(), ua: Joi.string() }),
@@ -42,15 +37,15 @@ const add = Joi.object({
 // //   groupBloodNotAllowed: Joi.array().items(Joi.bool()).sparse()
 // //   ???
 // groupBloodNotAllowed: Joi.array()
-});
+// });
 
-const schemas = {
-  add,
-};
+// const schemas = {
+//     addListedProduct,
+// };
 
-const Product = model("product", productSchema);
+const ListedProduct = model("category", listedProductSchema);
 
 module.exports = {
-  Product,
-  schemas,
+    ListedProduct,
+//   schemas,
 };
