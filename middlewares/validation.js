@@ -1,3 +1,6 @@
+
+const Joi = require("joi");
+
 const validation = (schema) => {
     const func = (req, res, next)=> {
         const { error } = schema.validate(req.body);
@@ -11,4 +14,13 @@ const validation = (schema) => {
     return func;
 }
 
-module.exports = validation;
+const productsDailySchema = Joi.object({
+  height: Joi.number().required(),
+  age: Joi.number().required(),
+  currentWeight: Joi.number().required(),
+  desiredWeight: Joi.number().required(),
+  bloodType: Joi.number().min(1).max(4).required(),
+});
+
+module.exports = { productsDailySchema };
+    module.exports = validation;
