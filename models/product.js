@@ -6,7 +6,7 @@ const Joi = require("joi");
 const productSchema = Schema(
   {
     categories: {
-      type: String,
+      type: Array,
     },
     weight: {
       type: Number,
@@ -34,14 +34,14 @@ const productSchema = Schema(
 );
 
 const add = Joi.object({
-//   categories: Joi.string().required(),
-//   weight: Joi.string.required(),
-//   title: Joi.object({ ru: Joi.string(), ua: Joi.string() }),
-//   calories: Joi.number().required(),
-// //   ???
-// //   groupBloodNotAllowed: Joi.array().items(Joi.bool()).sparse()
-// //   ???
-// groupBloodNotAllowed: Joi.array()
+  //   categories: Joi.string().required(),
+  //   weight: Joi.string.required(),
+  //   title: Joi.object({ ru: Joi.string(), ua: Joi.string() }),
+  //   calories: Joi.number().required(),
+  // //   ???
+  // //   groupBloodNotAllowed: Joi.array().items(Joi.bool()).sparse()
+  // //   ???
+  // groupBloodNotAllowed: Joi.array()
 });
 
 const schemas = {

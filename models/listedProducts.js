@@ -3,30 +3,28 @@ const { Schema, model } = require("mongoose");
 
 // const title = {ru, ua};
 
-const listedProductSchema = Schema(
-  {
-    categories: {
+const listedProductSchema = Schema({
+  categories: {
+    type: String,
+  },
+  weight: {
+    type: Number,
+  },
+  title: {
+    ru: {
       type: String,
     },
-    weight: {
-      type: Number,
-    },
-    title: {
-      ru: {
-        type: String,
-      },
-      ua: {
-        type: String,
-      },
-    },
-    calories: {
-      type: Number,
-    },
-    groupBloodNotAllowed: {
-      type: Array,
+    ua: {
+      type: String,
     },
   },
-);
+  calories: {
+    type: Number,
+  },
+  groupBloodNotAllowed: {
+    type: Array,
+  },
+});
 
 // const addListedProduct = Joi.object({
 //   categories: Joi.string().required(),
@@ -46,6 +44,6 @@ const listedProductSchema = Schema(
 const ListedProduct = model("category", listedProductSchema);
 
 module.exports = {
-    ListedProduct,
-//   schemas,
+  ListedProduct,
+  //   schemas,
 };
