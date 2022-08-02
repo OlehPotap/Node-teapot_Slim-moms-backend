@@ -22,6 +22,6 @@ router.post("/", authenticate, validation(schemas.add), ctrlWrapper(add));
 // Мидлвар для удаления продукта (Я не знаю какой указать ендпоинт для этого мидлвара)
 router.delete("/", ctrlWrapper(remove));
 
-router.post("/private/daily", ctrlWrapper(productController));
+router.post("/private/daily", authenticate, ctrlWrapper(productController));
 
 module.exports = router;
