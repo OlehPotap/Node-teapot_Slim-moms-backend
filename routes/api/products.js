@@ -8,7 +8,7 @@ const {
 
 const {ctrlWrapper} = require("../../helpers");
 
-const { validation, authenticate } = require("../../middlewares/middlewares");
+const { validation, authenticate } = require("../../middlewares");
 
 const {schemas} = require("../../models/product");
 
