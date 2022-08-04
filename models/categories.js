@@ -18,6 +18,9 @@ const categorySchema = Schema({
   calories: {
     type: Number,
   },
+  userInfo: {
+    // height: 
+  },
   groupBloodNotAllowed: {
     type: Array,
   },

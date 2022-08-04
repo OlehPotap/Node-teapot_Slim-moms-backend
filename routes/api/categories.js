@@ -3,7 +3,7 @@ const express = require("express");
 const {
     findOne,
     findAll
-} = require("../../controllers/productsList.controller");
+} = require("../../controllers/categories.controller");
 
 const {ctrlWrapper} = require("../../helpers");
 

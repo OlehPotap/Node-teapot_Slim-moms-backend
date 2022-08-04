@@ -8,7 +8,7 @@ dotenv.config({ path: path.join(__dirname, "./.env") });
 
 const authRouter = require("./routes/api/users");
 const productsRouter = require("./routes/api/products");
-const productsListRouter = require("./routes/api/productsList");
+const categoriesRouter = require("./routes/api/categories");
 
 const app = express();
 
@@ -21,7 +21,7 @@ app.use(express.static("public"));
 
 app.use("/api/users", authRouter);
 app.use("/api/products", productsRouter);
-app.use("/api/products-list", productsListRouter);
+app.use("/api/products-list", categoriesRouter);
 
 app.use((req, res) => {
   res.status(404).json({ message: "Not found" });
