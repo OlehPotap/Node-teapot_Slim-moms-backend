@@ -8,7 +8,7 @@ dotenv.config({ path: path.join(__dirname, "./.env") });
 
 const authRouter = require("./routes/api/users");
 const productsRouter = require("./routes/api/products");
-const productsListRouter = require("./routes/api/productsList");
+const productsListRouter = require("./routes/api/categories");
 
 const app = express();
 
