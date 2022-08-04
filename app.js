@@ -21,7 +21,7 @@ app.use(express.static("public"));
 
 app.use("/api/users", authRouter);
 app.use("/api/products", productsRouter);
-app.use("/api/products-list", categoriesRouter);
+app.use("/api/categories", categoriesRouter);
 
 app.use((req, res) => {
   res.status(404).json({ message: "Not found" });

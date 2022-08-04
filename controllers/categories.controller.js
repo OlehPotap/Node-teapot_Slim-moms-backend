@@ -8,27 +8,15 @@ const findOne = async (req, res) => {
 
 const findAll = async (req, res, next) => {
   try {
-    const result = await Category.find();
-    // console.log(result);
+    const result = await Category.find({});
+    console.log(result);
     res.status(200).json(result);
   } catch (error) {
     console.log(error);
   }
 };
 
-// const getUnrecomendedProducts = async (req, res, next) => {
-//   try {
-//     const { groupBloodNotAllowed } = req.body
-//     const result = await ListedProduct.find({groupBloodNotAllowed});
-//     console.log(result);
-//     res.status(200).json(result);
-//   } catch (error) {
-//     console.log(error);
-//   }
-// };
-
 module.exports = {
   findOne,
   findAll,
-  // getUnrecomendedProducts
 };
