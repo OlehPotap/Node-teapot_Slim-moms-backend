@@ -15,11 +15,16 @@ const register = async (req, res) => {
   }
   const hashPassword = await bcrypt.hash(password, 10);
   const result = await User.create({ ...req.body, password: hashPassword });
+  const payload = {
+    id: 'secret',
+  };
+  const token = jwt.sign(payload, JWT_SECRET, { expiresIn: "1h" });
   res.status(201).json({
     user: {
       email: result.email,
       name: result.name,
     },
+    token,
   });
 };
 
