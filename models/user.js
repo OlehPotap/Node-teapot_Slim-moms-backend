@@ -28,6 +28,28 @@ const userSchema = Schema(
       type: Number,
       default: 0,
     },
+    userInfo: {
+      age: {
+        type: Number,
+        default: null,
+      },
+      bloodType: {
+        type: String,
+        default: null,
+      },
+      currentWeight: {
+        type: Number,
+        default: null,
+      },
+      desiredWeight: {
+        type: Number,
+        default: null,
+      },
+      height: {
+        type: Number,
+        default: null,
+      },
+    },
     forbidenCategories: [String],
   },
   { versionKey: false, timestamps: true }
