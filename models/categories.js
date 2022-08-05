@@ -1,6 +1,6 @@
-const { Schema, model } = require("mongoose");
+const mongoose = require('mongoose');
 
-const categorySchema = Schema({
+const categorySchema = mongoose.Schema({
   categories: {
     type: Array,
   },
@@ -19,13 +19,13 @@ const categorySchema = Schema({
     type: Number,
   },
   userInfo: {
-    // height: 
+    // height:
   },
   groupBloodNotAllowed: {
     type: Array,
   },
 });
 
-const Category = model("category", categorySchema);
+const Category = mongoose.model('category', categorySchema);
 
 module.exports = { Category };

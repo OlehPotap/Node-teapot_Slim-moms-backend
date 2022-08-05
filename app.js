@@ -1,30 +1,36 @@
-const express = require("express");
-const logger = require("morgan");
-const cors = require("cors");
-const dotenv = require("dotenv");
-const path = require("path");
+const express = require('express');
+const logger = require('morgan');
+const cors = require('cors');
+const dotenv = require('dotenv');
+const path = require('path');
 
-dotenv.config({ path: path.join(__dirname, "./.env") });
+dotenv.config({ path: path.join(__dirname, './.env') });
 
-const authRouter = require("./routes/api/users");
-const productsRouter = require("./routes/api/products");
-const categoriesRouter = require("./routes/api/categories");
+const authRouter = require('./routes/api/users');
+const productsRouter = require('./routes/api/products');
+const categoriesRouter = require('./routes/api/categories');
 
 const app = express();
 
-const formatsLogger = app.get("env") === "development" ? "dev" : "short";
+const formatsLogger = app.get('env') === 'development' ? 'dev' : 'short';
 
 app.use(logger(formatsLogger));
-app.use(cors());
+app.use(
+  cors({
+    origin: process.env.ORIGIN_CORS_URL,
+    credentials: true,
+    optionSuccessStatus: 200,
+  })
+);
 app.use(express.json());
-app.use(express.static("public"));
+app.use(express.static('public'));
 
-app.use("/api/users", authRouter);
-app.use("/api/products", productsRouter);
-app.use("/api/categories", categoriesRouter);
+app.use('/api/users', authRouter);
+app.use('/api/products', productsRouter);
+app.use('/api/categories', categoriesRouter);
 
 app.use((req, res) => {
-  res.status(404).json({ message: "Not found" });
+  res.status(404).json({ message: 'Not found' });
 });
 
 app.use((err, req, res, next) => {
