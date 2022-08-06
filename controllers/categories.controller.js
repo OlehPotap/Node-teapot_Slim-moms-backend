@@ -1,4 +1,4 @@
-const { Category } = require("../models/categories");
+const { Category } = require('../models/categories');
 
 const findOne = async (req, res) => {
   const { _id } = req.params;
@@ -9,7 +9,6 @@ const findOne = async (req, res) => {
 const findAll = async (req, res, next) => {
   try {
     const result = await Category.find({});
-    console.log(result);
     res.status(200).json(result);
   } catch (error) {
     console.log(error);
