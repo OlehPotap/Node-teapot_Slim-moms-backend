@@ -63,9 +63,12 @@ const logout = async (req, res) => {
 
 const getCurrent = async (req, res) => {
   const { email, name } = req.user;
-  res.json({
-    email,
-    name,
+  console.log(email, name)
+  res.status(200).json({
+    user: {
+      name,
+      email,
+    }
   });
 };
 
