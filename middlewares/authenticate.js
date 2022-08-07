@@ -12,10 +12,12 @@ const authenticate = async (req, res, next) => {
         if(bearer !== "Bearer") {
             throw createError(401);
         }
+        console.log(token)
         try {
             const {id} = jwt.verify(token, JWT_SECRET);
+            console.log(id)
             const user = await User.findById(id);
-            if(!user || !user.token){
+            if(user.token !== token){
                 throw createError(401);
             }
             req.user = user;
