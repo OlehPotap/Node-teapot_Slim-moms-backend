@@ -24,7 +24,7 @@ const userSchema = Schema(
       type: String,
       default: "",
     },
-    dailyCalories: {
+    dailyCaloriesRate: {
       type: Number,
       default: 0,
     },

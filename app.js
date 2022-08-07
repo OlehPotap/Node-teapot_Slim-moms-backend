@@ -7,7 +7,7 @@ const path = require('path');
 dotenv.config({ path: path.join(__dirname, './.env') });
 
 const authRouter = require('./routes/api/users');
-const productsRouter = require('./routes/api/products');
+const diaryRouter = require('./routes/api/diary');
 const categoriesRouter = require('./routes/api/categories');
 
 const app = express();
@@ -26,7 +26,7 @@ app.use(express.json());
 app.use(express.static('public'));
 
 app.use('/api/users', authRouter);
-app.use('/api/products', productsRouter);
+app.use('/api/diary', diaryRouter);
 app.use('/api/categories', categoriesRouter);
 
 app.use((req, res) => {

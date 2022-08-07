@@ -55,7 +55,6 @@ const logout = async (req, res) => {
 };
 
 const getCurrent = async (req, res) => {
-  console.log("попали в контроллер");
   const { _id } = req.user;
   const user = await User.findById(_id);
   if (!user) {
@@ -67,9 +66,33 @@ const getCurrent = async (req, res) => {
   });
 };
 
+const updateUserInfo = async (req, res) => {
+  const { _id } = req.user;
+  const { userInfo } = req.body;
+  const calcCalories =
+  Math.round(10 * userInfo.currentWeight +
+    6.25 * userInfo.height -
+    5 * userInfo.age -
+    161 -
+    10 * (userInfo.currentWeight - userInfo.desiredWeight));
+  const user = await User.findByIdAndUpdate(
+    _id,
+    { $set: { userInfo: userInfo, dailyCaloriesRate: calcCalories } },
+    { new: true }
+  );
+  if (!user) {
+    throw createError(401, "Not authorized");
+  }
+  res.json({
+    dailyCaloriesRate: user.dailyCaloriesRate,
+    userInfo: user.userInfo,
+  });
+};
+
 module.exports = {
   register,
   login,
   logout,
   getCurrent,
+  updateUserInfo,
 };
