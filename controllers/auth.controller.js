@@ -15,27 +15,20 @@ const register = async (req, res) => {
   }
   const hashPassword = await bcrypt.hash(password, 10);
   const result = await User.create({ ...req.body, password: hashPassword });
-  const payload = {
-    id: 'secret',
-  };
-  const token = jwt.sign(payload, JWT_SECRET, { expiresIn: "1h" });
+
   res.status(201).json({
     user: {
       email: result.email,
       name: result.name,
     },
-    token,
   });
 };
 
 const login = async (req, res) => {
   const { email, password } = req.body;
   const user = await User.findOne({ email });
-  if (!user) {
-    throw createError(401, "Email not found");
-  }
-  if (!bcrypt.compare(password, user.password)) {
-    throw createError(401, "Password wrong");
+  if (!user || !(await bcrypt.compare(password, user.password))) {
+    throw createError(401, "Wrong");
   }
   const payload = {
     id: user._id,
@@ -62,13 +55,15 @@ const logout = async (req, res) => {
 };
 
 const getCurrent = async (req, res) => {
-  const { email, name } = req.user;
-  console.log(email, name)
-  res.status(200).json({
-    user: {
-      name,
-      email,
-    }
+  console.log("попали в контроллер");
+  const { _id } = req.user;
+  const user = await User.findById(_id);
+  if (!user) {
+    throw createError(401, "Not authorized");
+  }
+  res.json({
+    name: user.name,
+    email: user.email,
   });
 };
 
