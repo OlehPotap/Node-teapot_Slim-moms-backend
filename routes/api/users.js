@@ -5,6 +5,7 @@ const {
   login,
   logout,
   getCurrent,
+  updateUserInfo
 } = require("../../controllers/auth.controller");
 
 const { ctrlWrapper } = require("../../helpers");
@@ -24,5 +25,7 @@ router.post("/login", validation(schemas.login), ctrlWrapper(login));
 router.get("/current", authenticate, ctrlWrapper(getCurrent));
 
 router.get("/logout", authenticate, ctrlWrapper(logout));
+
+router.patch('/userInfo', authenticate, ctrlWrapper(updateUserInfo))
 
 module.exports = router;
