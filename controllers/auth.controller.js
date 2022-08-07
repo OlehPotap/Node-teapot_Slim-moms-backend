@@ -63,6 +63,7 @@ const getCurrent = async (req, res) => {
   res.json({
     name: user.name,
     email: user.email,
+    token: user.token
   });
 };
 
