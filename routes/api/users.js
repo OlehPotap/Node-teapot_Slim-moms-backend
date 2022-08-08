@@ -26,6 +26,6 @@ router.get("/current", authenticate, ctrlWrapper(getCurrent));
 
 router.get("/logout", authenticate, ctrlWrapper(logout));
 
-router.patch('/userInfo', authenticate, ctrlWrapper(updateUserInfo))
+router.patch('/updateUserInfo', authenticate, ctrlWrapper(updateUserInfo))
 
 module.exports = router;
