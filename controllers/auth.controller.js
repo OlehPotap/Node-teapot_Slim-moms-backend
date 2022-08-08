@@ -1,7 +1,10 @@
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
+const {findProductsByBlood} = require('../services/caterories.service')
+
 const { User } = require("../models/user");
+
 
 const { createError } = require("../helpers");
 
@@ -55,21 +58,22 @@ const logout = async (req, res) => {
 };
 
 const getCurrent = async (req, res) => {
-  const { _id } = req.user;
-  const user = await User.findById(_id);
-  if (!user) {
-    throw createError(401, "Not authorized");
-  }
+  const  user  = req.user;
+  // const user = await User.findById(_id);
   res.json({
-    name: user.name,
-    email: user.email,
-    token: user.token
+   name: user.name,
+   email: user.email,
+   token: user.token,
+   dailyCaloriesRate: user.dailyCaloriesRate,
+   forbidenCategories: user.forbidenCategories
   });
 };
 
 const updateUserInfo = async (req, res) => {
+  
   const { _id } = req.user;
   const { userInfo } = req.body;
+  const forbidenCategories = await findProductsByBlood(userInfo.bloodType);
   const calcCalories =
   Math.round(10 * userInfo.currentWeight +
     6.25 * userInfo.height -
@@ -78,7 +82,7 @@ const updateUserInfo = async (req, res) => {
     10 * (userInfo.currentWeight - userInfo.desiredWeight));
   const user = await User.findByIdAndUpdate(
     _id,
-    { $set: { userInfo: userInfo, dailyCaloriesRate: calcCalories } },
+    { $set: { userInfo: userInfo, dailyCaloriesRate: calcCalories, forbidenCategories } },
     { new: true }
   );
   if (!user) {
@@ -87,6 +91,7 @@ const updateUserInfo = async (req, res) => {
   res.json({
     dailyCaloriesRate: user.dailyCaloriesRate,
     userInfo: user.userInfo,
+    forbidenCategories: user.forbidenCategories
   });
 };
 
