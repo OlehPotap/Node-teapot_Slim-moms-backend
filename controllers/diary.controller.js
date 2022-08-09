@@ -51,14 +51,19 @@ const deleteProduct = async (req, res) => {
   const searchedProduct = result.productList.find((el) => {
     return el._id.toString() !== _id.toString();
   });
+
   const newProductList = result.productList.filter((el) => {
     return el._id.toString() !== _id.toString();
   });
-  const newCaloriesReceived =
-    result.caloriesReceived - searchedProduct.calories > 0
-      ? result.caloriesReceived - searchedProduct.calories
-      : 0;
 
+  let newCaloriesReceived = 0
+ if (newProductList.length !== 0) {
+  newCaloriesReceived =
+  result.caloriesReceived - searchedProduct.calories > 0
+    ? result.caloriesReceived - searchedProduct.calories
+    : 0;
+    // return newCaloriesReceived
+ }
   const newDiary = await Dairy.findOneAndUpdate(
     { date, owner },
     {

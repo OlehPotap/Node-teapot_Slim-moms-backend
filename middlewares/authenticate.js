@@ -9,19 +9,18 @@ const authenticate = async (req, res, next) => {
     const { authorization = "" } = req.headers;
     const [bearer, token] = authorization.split(" ");
     if (bearer !== "Bearer") {
-      throw createError(401);
+      throw createError(401, "Unautorized");
     }
     try {
       const { id } = jwt.verify(token, JWT_SECRET);
       const user = await User.findById(id);
       if (user.token !== token) {
-        throw createError(401);
+        throw createError(401, "Unautorized");
       }
       req.user = user;
       next();
     } catch (error) {
-      error.status = 401;
-      throw error;
+      throw createError(401, "Unautorized");
     }
   } catch (error) {
     next(error);

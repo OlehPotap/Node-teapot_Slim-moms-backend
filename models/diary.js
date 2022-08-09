@@ -1,5 +1,6 @@
 const { Schema, model } = require('mongoose');
 const Joi = require('joi');
+const { array } = require('joi');
 
 
 const diarySchema = Schema(
@@ -8,24 +9,22 @@ const diarySchema = Schema(
         type: String,
         require: [true, "Date is required"],
       },
-    productList: [
-        {
-            weight: {
-              type: Number,
-            },
-            title: {
-              ru: {
-                type: String,
-              },
-              ua: {
-                type: String,
-              },
-            },
-            calories: {
-              type: Number,
-            },
-        }
-    ],
+    productList: [{
+      weight: {
+        type: Number,
+      },
+      title: {
+        ru: {
+          type: String,
+        },
+        ua: {
+          type: String,
+        },
+      },
+      calories: {
+        type: Number,
+      },
+  }],
     caloriesReceived: {
       type: Number,
       default: 0,
