@@ -19,11 +19,17 @@ const register = async (req, res) => {
   const hashPassword = await bcrypt.hash(password, 10);
   const result = await User.create({ ...req.body, password: hashPassword });
 
+  const payload = {
+    id: result._id,
+  };
+  const token = jwt.sign(payload, JWT_SECRET, { expiresIn: "1h" });
+  await User.findByIdAndUpdate(result._id, { token });
   res.status(201).json({
     user: {
       email: result.email,
       name: result.name,
     },
+    token
   });
 };
 
@@ -31,7 +37,7 @@ const login = async (req, res) => {
   const { email, password } = req.body;
   const user = await User.findOne({ email });
   if (!user || !(await bcrypt.compare(password, user.password))) {
-    throw createError(401, "Wrong");
+    throw createError(404, "User does not exist");
   }
   const payload = {
     id: user._id,
